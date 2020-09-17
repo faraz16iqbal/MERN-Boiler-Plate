@@ -20,15 +20,20 @@ mongoose
   });
 
 app.post("/api/users/register", (req, res) => {
+  console.log(User)
   const user = new User(req.body);
   user.save((err, userData) => {
-    if (err) {
-      return res.json({ success: false, err });
-    }
+    if (err)
+      return res.json({ success: false, err })
+    
+    return res.status(200).json({
+      success: true,
+      userData: user
+    })
   });
-});
 
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
+})
+// app.get("/", (req, res) => {
+//   res.send("hello world");
+// });
 app.listen(5000);
