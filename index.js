@@ -25,16 +25,27 @@ mongoose
 app.post("/api/users/register", (req, res) => {
   console.log(User);
   const user = new User(req.body);
-  user.save((err, userData) => {
+  user.save((err, doc) => {
     if (err) return res.json({ success: false, err });
 
     return res.status(200).json({
       success: true,
-      userData: user,
+      userData: doc,
     });
   });
 });
-// app.get("/", (req, res) => {
-//   res.send("hello world");
-// });
+
+app.post("/api/user/login", (req, res) => {
+  //find email
+
+  User.findOne({ email: req.body.email }, (err, user) => {
+    if (!user) {
+      return res.json({
+        loginSucess: false,
+        message: "Auth failed, email not found",
+      });
+    }
+  });
+});
+
 app.listen(5000);
