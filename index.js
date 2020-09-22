@@ -31,7 +31,7 @@ app.get("/api/users/auth", auth, (req, res) => {
     isAuth: true,
     email: req.user.email,
     name: req.user.name,
-    lastname: req.user.lastname,
+    lastname: req.user.lastName,
     role: req.user.role,
   });
 });
@@ -74,6 +74,17 @@ app.post("/api/users/login", (req, res) => {
           loginSucess: true,
         });
       });
+    });
+  });
+});
+
+app.get("/api/users/logout", auth, (req, res) => {
+  //get id from auth function
+
+  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, doc) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).send({
+      success: true,
     });
   });
 });
