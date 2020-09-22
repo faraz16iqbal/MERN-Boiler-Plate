@@ -19,6 +19,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
+    useFindAndModify: false,
   })
   .then(() => console.log("DB Connected"))
   .catch((err) => {
@@ -85,8 +86,13 @@ app.get("/api/users/logout", auth, (req, res) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).send({
       success: true,
+      doc: doc,
     });
   });
 });
 
-app.listen(5000);
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => {
+  console.log("Listening on port " + port);
+});
