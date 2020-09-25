@@ -1,7 +1,8 @@
 // import { response } from "express";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import loginUser from "../../actions/user_actions";
+import { Link } from "react-router-dom";
+import { loginUser } from "../../actions/user_actions";
 
 class RegisterLogin extends Component {
   state = {
@@ -53,7 +54,7 @@ class RegisterLogin extends Component {
         <div className="row">
           <form className="col-12">
             <div className="row">
-              <div className="iput-field col s12">
+              <div className="input-field col s12">
                 <input
                   name="email"
                   value={this.state.email}
@@ -62,7 +63,9 @@ class RegisterLogin extends Component {
                   type="email"
                   className="validate"
                 />
-                <label htmlFor="email">Email</label>
+                <label className="active" htmlFor="email">
+                  Email
+                </label>
                 <span
                   className="helper-text"
                   data-error="Type a right email"
@@ -71,12 +74,8 @@ class RegisterLogin extends Component {
               </div>
             </div>
 
-            {this.state.errors.length && (
-              <div>{this.displayErrors(this.state.errors)}</div>
-            )}
-
             <div className="row">
-              <div className="iput-field col s12">
+              <div className="input-field col s12">
                 <input
                   name="password"
                   value={this.state.password}
@@ -85,7 +84,9 @@ class RegisterLogin extends Component {
                   type="password"
                   className="validate"
                 />
-                <label htmlFor="password">Password</label>
+                <label className="active" htmlFor="password">
+                  Password
+                </label>
                 <span
                   className="helper-text"
                   data-error="Wrong password"
@@ -93,15 +94,32 @@ class RegisterLogin extends Component {
                 />
               </div>
             </div>
-            <div className="col 12">
-              <button
-                className="btn waves-effect red lighten-2"
-                type="submit"
-                name="action"
-                onClick={this.submitForm}
-              >
-                Login
-              </button>
+            {this.state.errors.length > 0 ? (
+              <div>{this.displayErrors(this.state.errors)}</div>
+            ) : null}
+
+            <div className="row">
+              <div className="col s12">
+                <button
+                  className="btn waves-effect red lighten-2"
+                  type="submit"
+                  name="action"
+                  onClick={this.submitForm}
+                >
+                  Login
+                </button>
+                &nbsp;&nbsp;
+                <Link to="/register">
+                  <button
+                    className="btn waves-effect red lighten-2"
+                    type="submit"
+                    name="action"
+                    onClick={this.submitForm}
+                  >
+                    Sign Up
+                  </button>
+                </Link>
+              </div>
             </div>
           </form>
         </div>
